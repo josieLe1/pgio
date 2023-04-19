@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'MyFirstApplicationEver'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E93BE672FC646A383001BFB588B86E2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E19F165C26AD4A9FA947AED975A7FA86 }}
           package: .
