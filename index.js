@@ -64,6 +64,29 @@ app.post("/input", upload.single('filename'), (req, res) => {
   res.send(message);
 });
 
+app.get("/output", (req, res) => {
+  var message = "";
+  res.render("output", { message: message });
+});
+app.post("/output", (req, res) => {
+  const sql = "SELECT * FROM PRODUCT ORDER BY PROD_ID";
+  pool.query(sql, [], (err, result) => {
+    var message = "";
+    if (err) {
+      message = `Error - ${err.message}`;
+      res.render("output", { message: message })
+    } else {
+      var output = "";
+      result.rows.forEach(product => {
+        output +=
+          `${product.prod_id},${product.prod_name},${product.prod_desc},${product.prod_price}\r\n`;
+      });
+      res.header("Content-Type", "text/csv");
+      res.attachment("export.csv");
+      return res.send(output);
+    };
+  });
+});
 
 // Add database package and connection string (can remove ssl)
 const { Pool } = require('pg');
